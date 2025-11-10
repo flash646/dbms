@@ -1,0 +1,43 @@
+use studentDB;
+
+db.createCollection("students");
+
+// Insert Operation
+
+db.students.insertOne({ Roll: 1, Name: "Amit", Marks: 85, City: "Pune" });
+
+db.students.insertMany([
+  { Roll: 2, Name: "Riya", Marks: 92, City: "Mumbai" },
+  { Roll: 3, Name: "Rahul", Marks: 76, City: "Pune" },
+  { Roll: 4, Name: "Sneha", Marks: 65, City: "Delhi" }
+]);
+
+// Read Operation
+
+db.students.find();
+
+db.students.find({}, { Name: 1, Marks: 1 });
+
+// Students with Marks > 70 AND from Pune
+db.students.find({ $and: [ { Marks: { $gt: 70 } }, { City: "Pune" } ] });
+
+// Students with Marks < 80 OR City = Mumbai
+db.students.find({ $or: [ { Marks: { $lt: 80 } }, { City: "Mumbai" } ] });
+
+//Update Operation
+
+db.students.updateOne(
+  { Roll: 4 },
+  { $set: { Marks: 75, City: "Bangalore" } }
+);
+
+db.students.updateMany(
+  { City: "Pune" },
+  { $set: { Marks: 90 } }
+);
+
+// Delete Operation
+
+db.students.deleteOne({ Roll: 3 });
+
+db.students.deleteMany({ City: "Pune" });
