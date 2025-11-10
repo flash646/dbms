@@ -1,0 +1,56 @@
+//Experiment 3//
+
+CREATE TABLE Student (
+    Roll INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Address VARCHAR(100)
+);
+
+CREATE TABLE Subject (
+    sub_code INT PRIMARY KEY,
+    sub_name VARCHAR(50)
+);
+
+CREATE TABLE Marks (
+    Roll INT,
+    sub_code INT,
+    marks INT,
+    FOREIGN KEY (Roll) REFERENCES Student(Roll),
+    FOREIGN KEY (sub_code) REFERENCES Subject(sub_code)
+);
+
+INSERT INTO Student (Roll, Name, Address) VALUES
+(1, 'Amit Sharma', 'Pune'),
+(2, 'Priya Patel', 'Mumbai'),
+(3, 'Rohan Deshmukh', 'Nagpur'),
+(4, 'Sneha Joshi', 'Nashik'),
+(5, 'Karan Verma', 'Akola');
+
+INSERT INTO Subject (sub_code, sub_name) VALUES
+(101, 'Mathematics'),
+(102, 'Physics'),
+(103, 'Chemistry'),
+(104, 'Computer Networks'),
+(105, 'Database Systems');
+
+INSERT INTO Marks (Roll, sub_code, marks) VALUES
+(1, 101, 88),
+(1, 102, 75),
+(1, 103, 82),
+(2, 101, 90),
+(2, 104, 77),
+(3, 102, 85),
+(3, 103, 79),
+(3, 105, 92),
+(4, 101, 66),
+(4, 103, 70),
+(5, 104, 89),
+(5, 105, 95);
+
+CREATE VIEW sample_view AS select Roll , marks From marks where marks > 80;
+
+select * from sample_view;
+
+create index student_name_index on Student(Name);
+
+show indexes from Student;

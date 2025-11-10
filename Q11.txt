@@ -1,0 +1,46 @@
+// mongodb  11
+
+use newstudentrecord;
+
+db.createCollection("stud");
+
+db.stud.insertMany([
+  { Roll: 101, Name: "Anjali", Age: 19, City: "Pune" },
+  { Roll: 102, Name: "Rohan", Age: 20, City: "Nashik" },
+  { Roll: 103, Name: "Priya", Age: 21, City: "Mumbai" },
+  { Roll: 104, Name: "Aditya", Age: 22, City: "Nagpur" },
+  { Roll: 105, Name: "Neha", Age: 20, City: "Pune" },
+  { Roll: 106, Name: "Vikram", Age: 23, City: "Akola" },
+  { Roll: 107, Name: "Piyush", Age: 22, City: "Nashik" },
+  { Roll: 108, Name: "Sneha", Age: 19, City: "Satara" },
+  { Roll: 109, Name: "Kunal", Age: 21, City: "Mumbai" },
+  { Roll: 110, Name: "Tanishka", Age: 23, City: "Pune" },
+  { Roll: 111, Name: "Rahul", Age: 20, City: "Akola" },
+  { Roll: 112, Name: "Sakshi", Age: 21, City: "Nagpur" },
+  { Roll: 113, Name: "Omkar", Age: 19, City: "Pune" },
+  { Roll: 114, Name: "Aarav", Age: 24, City: "Nashik" },
+  { Roll: 115, Name: "Manasi", Age: 22, City: "Satara" },
+  { Roll: 116, Name: "Yash", Age: 23, City: "Akola" },
+  { Roll: 117, Name: "Chaitanya", Age: 20, City: "Mumbai" },
+  { Roll: 118, Name: "Isha", Age: 24, City: "Nagpur" },
+  { Roll: 119, Name: "Dev", Age: 22, City: "Pune" },
+  { Roll: 120, Name: "Sanved", Age: 19, City: "Akola" }
+]);
+
+db.stud.find({Age:20}).explain("executionStats");
+
+db.stud.createIndex({Age:1});
+
+db.stud.getIndexes();
+
+db.stud.find({Age:20}).explain("executionStats");
+
+db.stud.dropIndex("Age_1");
+
+db.stud.getIndexes();
+
+db.stud.aggregate([{ $group : { _id:"$City" , Avg_Age : { $avg : "$Age"}}}])
+
+db.stud.aggregate([{ $group : { _id:"$City" , Max_Age : { $max : "$Age" }}}]);
+
+db.stud.aggregate([{ $group : { _id : "$City" , Min_Age : {$min : "$Age"} , Max_Age : {$max :"$Age"} }}]);

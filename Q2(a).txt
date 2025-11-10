@@ -1,0 +1,40 @@
+
+// Experiment 02 // 
+
+CREATE TABLE Student (
+    Roll INT PRIMARY KEY,
+    Name VARCHAR(50),
+    Address VARCHAR(100)
+);
+
+CREATE TABLE Subject (
+    sub_code INT PRIMARY KEY,
+    sub_name VARCHAR(50)
+);
+
+CREATE TABLE Marks (
+    Roll INT,
+    sub_code INT,
+    marks INT,
+    FOREIGN KEY (Roll) REFERENCES Student(Roll),
+    FOREIGN KEY (sub_code) REFERENCES Subject(sub_code)
+);
+
+ALTER TABLE Student
+ADD DOB DATE;
+
+ALTER TABLE Student
+MODIFY Name VARCHAR(80);
+
+ALTER TABLE Subject
+RENAME COLUMN sub_code TO code;
+
+RENAME TABLE Subject TO Sub;
+
+TRUNCATE TABLE Marks;
+TRUNCATE TABLE Sub;
+TRUNCATE TABLE Student;
+
+DROP TABLE Marks;
+DROP TABLE Sub;
+DROP TABLE Student;
