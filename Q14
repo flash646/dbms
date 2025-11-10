@@ -1,0 +1,26 @@
+CREATE TABLE areas (
+    radius INT,
+    area DECIMAL(10,2)
+);
+
+DELIMITER //
+
+CREATE PROCEDURE calc_area(IN r INT)
+BEGIN
+    DECLARE a DECIMAL(10,2);
+
+    IF r BETWEEN 5 AND 9 THEN
+        SET a = 3.14 * r * r;
+        INSERT INTO areas VALUES (r, a);
+    ELSE
+        SELECT 'Radius must be between 5 and 9' AS Message;
+    END IF;
+END //
+
+DELIMITER ;
+
+CALL calc_area(34);
+
+CALL calc_area(7);
+
+SELECT * FROM areas;
