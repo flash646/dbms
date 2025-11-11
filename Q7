@@ -1,3 +1,6 @@
+
+-- Pls change this code as per question this is for roll number
+
 CREATE TABLE o_rollcall (
     roll_no INT,
     name VARCHAR(20),
