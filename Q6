@@ -1,0 +1,52 @@
+CREATE TABLE Stud_Marks (
+  Roll INT PRIMARY KEY,
+  Name VARCHAR(50),
+  Total_Marks INT
+);
+
+CREATE TABLE Result (
+  Roll INT,
+  Name VARCHAR(50),
+  Class VARCHAR(30)
+);
+
+INSERT INTO Stud_Marks VALUES
+(1, 'Amit', 1450),
+(2, 'Priya', 950),
+(3, 'Rohan', 870),
+(4, 'Sneha', 800);
+
+DELIMITER $$
+
+CREATE PROCEDURE proc_Grade(IN roll_no INT)
+BEGIN
+  DECLARE student_name VARCHAR(50);
+  DECLARE marks INT;
+  DECLARE class_name VARCHAR(30);
+
+  -- Get name and marks for given roll number
+  SELECT Name, Total_Marks INTO student_name, marks
+  FROM Stud_Marks
+  WHERE Roll = roll_no;
+
+  -- Decide class based on marks
+  IF marks BETWEEN 990 AND 1500 THEN
+    SET class_name = 'Distinction';
+  ELSEIF marks BETWEEN 900 AND 989 THEN
+    SET class_name = 'First Class';
+  ELSEIF marks BETWEEN 825 AND 899 THEN
+    SET class_name = 'Higher Second Class';
+  ELSE
+    SET class_name = 'Fail';
+  END IF;
+
+  -- Insert result into Result table
+  INSERT INTO Result (Roll, Name, Class)
+  VALUES (roll_no, student_name, class_name);
+END$$
+
+DELIMITER ;
+
+CALL proc_Grade(2);
+
+SELECT * FROM Result;
